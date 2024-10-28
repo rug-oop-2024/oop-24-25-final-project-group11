@@ -157,11 +157,11 @@ If you did not implement the feature
 | `ML/detect-features`                  | FN           | Yuwen Zhou           |         | |
 | `ML/artifact`                         | NF           | Yuwen Zhou           |         | |
 | `ML/feature`                          | NF           | Yuwen Zhou           |         | |
-| `ML/metric`                           | NF           |                      |         | |
-| `ML/metric/extensions`                | FN           |                      |         | |
-| `ML/model`                            | NF           |                      |         | |
-| `ML/model/extensions`                 | FN           |                      |         | |
-| `ML/pipeline/evaluation`              | FN           |                      |         | | 
+| `ML/metric`                           | NF           | Yuwen Zhou           |         | |
+| `ML/metric/extensions`                | FN           | Yuwen Zhou           |         | |
+| `ML/model`                            | NF           | Yuwen Zhou           |         | |
+| `ML/model/extensions`                 | FN           | Yuwen Zhou           |         | |
+| `ML/pipeline/evaluation`              | FN           | Yuwen Zhou           |         | | 
 | `ST/page/datasets`                    | NF           |                      |         | |
 | `ST/datasets/management/create`       | FN           |                      |         | |
 | `ST/datasets/management/save`         | FN           |                      |         | |
