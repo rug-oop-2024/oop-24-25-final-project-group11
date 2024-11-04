@@ -154,17 +154,17 @@ If you did not implement the feature
 | Requirement                           | Type (FN/NF) | Implemented by       | Implementation Completed (add X if done) | Comment |
 |-------------------------------------- |--------------|----------------------|--------------------------|---------|         
 | Up-to-date requirements.txt           | NF           |                      |         | |
-| `ML/detect-features`                  | FN           | Yuwen Zhou           |         | |
-| `ML/artifact`                         | NF           | Yuwen Zhou           |         | |
-| `ML/feature`                          | NF           | Yuwen Zhou           |         | |
-| `ML/metric`                           | NF           | Yuwen Zhou           |         | |
-| `ML/metric/extensions`                | FN           | Yuwen Zhou           |         | |
-| `ML/model`                            | NF           | Yuwen Zhou           |         | |
-| `ML/model/extensions`                 | FN           | Yuwen Zhou           |         | |
-| `ML/pipeline/evaluation`              | FN           | Yuwen Zhou           |         | | 
-| `ST/page/datasets`                    | NF           |                      |         | |
-| `ST/datasets/management/create`       | FN           |                      |         | |
-| `ST/datasets/management/save`         | FN           |                      |         | |
+| `ML/detect-features`                  | FN           | Yuwen Zhou           |    X     | |
+| `ML/artifact`                         | NF           | Yuwen Zhou           |    X     | |
+| `ML/feature`                          | NF           | Yuwen Zhou           |    X     | |
+| `ML/metric`                           | NF           | Yuwen Zhou           |    X     | |
+| `ML/metric/extensions`                | FN           | Yuwen Zhou           |    x     | |
+| `ML/model`                            | NF           | Yuwen Zhou           |    x     | |
+| `ML/model/extensions`                 | FN           | Yuwen Zhou           |    x     | |
+| `ML/pipeline/evaluation`              | FN           | Yuwen Zhou           |    x     | | 
+| `ST/page/datasets`                    | NF           | Yuwen Zhou           |    X     | |
+| `ST/datasets/management/create`       | FN           | Yuwen Zhou           |    X     | |
+| `ST/datasets/management/save`         | FN           | Yuwen Zhou           |    X     | |
 | `ST/page/modelling`                   | NF           |                      |         | |
 | `ST/modelling/datasets/list`          | FN           |                      |         | |
 | `ST/modelling/datasets/features`      | FN           |                      |         | |
