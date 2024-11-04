@@ -11,6 +11,7 @@ class Model(Artifact, ABC):
     """Abstract base class for machine learning models.
 
     Attributes:
+        type: The type of the artifact.
         name: The name of the model.
         asset_path: Path where the model is stored.
         data: Encoded data of the model.
@@ -20,7 +21,7 @@ class Model(Artifact, ABC):
     """
 
     def __init__(self, name: str, asset_path: str = "save/models", data: bytes = b"", version: str = "1.0.0") -> None:
-        super().__init__(name=name, asset_path=asset_path, data=data, version=version)
+        super().__init__(type="model", name=name, asset_path=asset_path, data=data, version=version)
         self._model = None
         self._parameters = {}
 

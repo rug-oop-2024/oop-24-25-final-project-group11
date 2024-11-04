@@ -1,3 +1,4 @@
+import uuid
 from abc import abstractmethod
 from ast import Bytes
 from pydantic import BaseModel, Field
@@ -6,15 +7,19 @@ import base64
 class Artifact(BaseModel):
     """Abstract class for all artifacts.
     Attributes:
+        id: Unique identifier for the artifact.
         name: Name of the artifact.
         asset_path: Path where the artifact is stored.
         data: Encoded data of the artifact.
         version: Version of the artifact, default="1.0.0"
+        type: Type of the artifact (e.g., "dataset").
     """
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str = Field()
     asset_path: str = Field()
     data: bytes = Field()
     version: str = Field("1.0.0")
+    type: str = Field(default="artifact")
 
     class Config:
         arbitrary_types_allowed = True
