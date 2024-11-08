@@ -165,18 +165,18 @@ If you did not implement the feature
 | `ST/page/datasets`                    | NF           | Yuwen Zhou           |    X     | |
 | `ST/datasets/management/create`       | FN           | Yuwen Zhou           |    X     | |
 | `ST/datasets/management/save`         | FN           | Yuwen Zhou           |    X     | |
-| `ST/page/modelling`                   | NF           |                      |         | |
-| `ST/modelling/datasets/list`          | FN           |                      |         | |
-| `ST/modelling/datasets/features`      | FN           |                      |         | |
-| `ST/modelling/models`                 | FN           |                      |         | |
-| `ST/modelling/pipeline/split`         | FN           |                      |         | |
-| `ST/modelling/pipeline/metrics`       | FN           |                      |         | |
-| `ST/modelling/pipeline/summary`       | FN           |                      |         | |
-| `ST/modelling/pipeline/train`         | FN           |                      |         | |
-| `ST/modelling/pipeline/save`          | FN           |                      |         | |
-| `ST/page/deployment`                  | FN           |                      |         | |
-| `ST/deployment/load`                  | FN           |                      |         | |
-| `ST/deployment/predict`               | FN           |                      |         | |
+| `ST/page/modelling`                   | NF           | Gunes Saner          |         | |
+| `ST/modelling/datasets/list`          | FN           | Gunes Saner          |         | |
+| `ST/modelling/datasets/features`      | FN           | Gunes Saner          |         | |
+| `ST/modelling/models`                 | FN           | Gunes Saner          |         | |
+| `ST/modelling/pipeline/split`         | FN           | Gunes Saner          |         | |
+| `ST/modelling/pipeline/metrics`       | FN           | Gunes Saner          |         | |
+| `ST/modelling/pipeline/summary`       | FN           | Gunes Saner          |         | |
+| `ST/modelling/pipeline/train`         | FN           | Gunes Saner          |         | |
+| `ST/modelling/pipeline/save`          | FN           | Gunes Saner          |         | |
+| `ST/page/deployment`                  | FN           | Gunes Saner          |         | |
+| `ST/deployment/load`                  | FN           | Gunes Saner          |         | |
+| `ST/deployment/predict`               | FN           | Gunes Saner          |         | |
 
 If you add extra features, please indicate them below:
 | Requirement                           | Type (FN/NF) | Implemented by       | Implementation Completed (add X if done) | Comment |
