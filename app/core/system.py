@@ -27,21 +27,31 @@ class ArtifactRegistry():
         }
         self._database.set(f"artifacts", artifact.id, entry)
     
-    def list(self, type: str=None) -> List[Artifact]:
+    def list(self, type: str = None) -> List[Artifact]:
         entries = self._database.list("artifacts")
         artifacts = []
         for id, data in entries:
             if type is not None and data["type"] != type:
                 continue
-            artifact = Artifact(
-                name=data["name"],
-                version=data["version"],
-                asset_path=data["asset_path"],
-                tags=data["tags"],
-                metadata=data["metadata"],
-                data=self._storage.load(data["asset_path"]),
-                type=data["type"],
-            )
+            if data["type"] == "dataset":
+                artifact = Dataset(
+                    name=data["name"],
+                    version=data["version"],
+                    asset_path=data["asset_path"],
+                    tags=data["tags"],
+                    metadata=data["metadata"],
+                    data=self._storage.load(data["asset_path"]),
+                )
+            else:
+                artifact = Artifact(
+                    name=data["name"],
+                    version=data["version"],
+                    asset_path=data["asset_path"],
+                    tags=data["tags"],
+                    metadata=data["metadata"],
+                    data=self._storage.load(data["asset_path"]),
+                    type=data["type"],
+                )
             artifacts.append(artifact)
         return artifacts
     

@@ -5,6 +5,7 @@ import numpy as np
 class MultipleLinearRegression(Model):
     """Multiple Linear Regression model for regression tasks."""
     def __init__(self, asset_path: str = "save/models", data: bytes = b"", version: str = "1.0.0") -> None:
+        """Initialize the model."""
         super().__init__(name="MultipleLinearRegression", asset_path=asset_path, data=data, version=version)
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:

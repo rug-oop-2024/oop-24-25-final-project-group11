@@ -1,10 +1,10 @@
 import uuid
-from abc import abstractmethod
-from ast import Bytes
+from abc import ABC,abstractmethod
 from pydantic import BaseModel, Field
 import base64
 
-class Artifact(BaseModel):
+
+class Artifact(ABC, BaseModel):
     """Abstract class for all artifacts.
     Attributes:
         id: Unique identifier for the artifact.
@@ -22,6 +22,12 @@ class Artifact(BaseModel):
     type: str = Field(default="artifact")
 
     class Config:
+        """
+        Configuration class for Pydantic's BaseModel settings in the Artifact class.
+
+        Attributes:
+            arbitrary_types_allowed (bool): Allows Pydantic to handle fields of arbitrary types.
+        """
         arbitrary_types_allowed = True
 
     def read(self) -> bytes:

@@ -1,7 +1,15 @@
 import streamlit as st
 from app.core.system import AutoMLSystem
 
-def main():
+
+def main() -> None:
+    """
+    Main function for the dataset saving page in Streamlit.
+
+    This function initializes the AutoML system instance,
+    checks if a dataset artifact is available in the session state,
+    and provides a button for saving the dataset artifact to the artifact registry.
+    """
     # Initialize AutoMLSystem singleton
     automl = AutoMLSystem.get_instance()
 
@@ -16,4 +24,4 @@ def main():
             automl.registry.save(dataset_artifact)
             st.success("Dataset saved successfully!")
     else:
-        st.warning("No dataset available to save. Please upload and create a dataset first.")
+        st.warning("No dataset available to save.")

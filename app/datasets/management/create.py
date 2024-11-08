@@ -4,7 +4,13 @@ from app.core.system import AutoMLSystem
 from autoop.core.ml.dataset import Dataset
 
 
-def main():
+def main() -> None:
+    """
+    Main function for the dataset upload and creation page in Streamlit.
+
+    This function initializes the AutoML system, allows users to upload a CSV file,
+    previews the dataset, and then saves it as a Dataset object in the system.
+    """
     # Initialize the AutoML system instance
     automl = AutoMLSystem.get_instance()
 
@@ -34,7 +40,7 @@ def main():
                 )
 
                 # Register the dataset using the AutoML system
-                automl.registry.register(dataset)  # Assuming a register method exists
+                automl.registry.register(dataset)
                 st.success(f"Dataset '{uploaded_file.name}' uploaded successfully!")
 
             except Exception as e:

@@ -1,3 +1,4 @@
+from symtable import Class
 from autoop.core.ml.artifact import Artifact
 import pandas as pd
 import io
@@ -23,12 +24,19 @@ class Dataset(Artifact):
     tags: Optional[List[str]] = Field(default_factory=list)
     metadata: Optional[Dict[str, str]] = Field(default_factory=dict)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
+        """
+        Initialize a Dataset instance with type 'dataset' and any additional arguments.
+
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments for initializing the base Artifact class.
+        """
         super().__init__(type="dataset", *args, **kwargs)
 
     @classmethod
     def from_dataframe(cls, data: pd.DataFrame, name: str, asset_path: str, version: str = "1.0.0",
-                       metadata: Optional[Dict[str, str]] = None):
+                       metadata: Optional[Dict[str, str]] = None) -> Class:
         """
         Factory method to create a Dataset instance from a DataFrame.
 
@@ -68,7 +76,8 @@ class Dataset(Artifact):
             data (pd.DataFrame): The DataFrame to save.
         """
         self.data = data.to_csv(index=False).encode()
-        super().save(self.data)
+        with open(self.asset_path, 'w') as f:
+            f.write(self.data)
 
     def encode(self) -> str:
         """

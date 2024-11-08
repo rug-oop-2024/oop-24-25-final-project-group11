@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from collections.abc import Callable
+
 import numpy as np
+
 
 METRICS = [
     "mean_squared_error",
@@ -12,9 +14,12 @@ METRICS = [
     "f1_score",
 ] # add the names (in strings) of the metrics you implement
 
-def get_metric(name: str):
-    # Factory function to get a metric by name.
-    # Return a metric instance given its str name.
+
+def get_metric(name: str) -> Callable:
+    """
+    Factory function to get a metric by name.
+    Return a metric instance given its str name.
+    """
     if name == "mean_squared_error":
         return MeanSquaredError()
     elif name == "accuracy":

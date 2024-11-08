@@ -1,13 +1,18 @@
-
 import json
 from typing import Dict, Tuple, List, Union
 import os
-
 from autoop.core.storage import Storage
 
-class Database():
 
-    def __init__(self, storage: Storage):
+class Database:
+    def __init__(self, storage: Storage) -> None:
+        """
+        Initialize a Database instance with the provided storage backend.
+
+        Args:
+            storage: An instance of a storage class that provides methods
+                     for saving, loading, listing, and deleting data.
+        """
         self._storage = storage
         self._data = {}
         self._load()
@@ -41,7 +46,7 @@ class Database():
         if not self._data.get(collection, None):
             return None
         return self._data[collection].get(id, None)
-    
+
     def delete(self, collection: str, id: str):
         """Delete a key from the database
         Args:
@@ -85,7 +90,7 @@ class Database():
             collection, id = key.split(os.sep)[-2:]
             if not self._data.get(collection, id):
                 self._storage.delete(f"{collection}{os.sep}{id}")
-    
+
     def _load(self):
         """Load the data from storage"""
         self._data = {}
@@ -96,4 +101,3 @@ class Database():
             if collection not in self._data:
                 self._data[collection] = {}
             self._data[collection][id] = json.loads(data.decode())
-

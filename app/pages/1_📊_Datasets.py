@@ -1,6 +1,7 @@
 import streamlit as st
 from app.core.system import AutoMLSystem
 
+
 # Initialize AutoMLSystem singleton
 automl = AutoMLSystem.get_instance()
 
@@ -8,9 +9,13 @@ automl = AutoMLSystem.get_instance()
 if 'page' not in st.session_state:
     st.session_state['page'] = 'main'
 
-# Function to navigate to a specific page
-def go_to_page(page_name):
+
+def go_to_page(page_name) -> None:
+    """
+    Function to navigate to a specific page.
+    """
     st.session_state['page'] = page_name
+
 
 # Page title
 st.title("Dataset Management")
@@ -24,6 +29,7 @@ st.sidebar.button("Save Dataset", on_click=lambda: go_to_page('save'))
 # Display different pages based on the current page state
 if st.session_state['page'] == 'main':
     st.header("Available Datasets")
+
     # Fetch and display datasets from the registry
     datasets = automl.registry.list(type="dataset")
 
