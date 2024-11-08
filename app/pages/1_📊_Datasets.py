@@ -24,7 +24,7 @@ st.title("Dataset Management")
 st.sidebar.title("Navigation")
 st.sidebar.button("Manage Datasets", on_click=lambda: go_to_page('main'))
 st.sidebar.button("Upload & Create Dataset", on_click=lambda: go_to_page('create'))
-st.sidebar.button("Save Dataset", on_click=lambda: go_to_page('save'))
+st.sidebar.button("Delete Dataset", on_click=lambda: go_to_page('delete'))
 
 # Display different pages based on the current page state
 if st.session_state['page'] == 'main':
@@ -41,10 +41,10 @@ if st.session_state['page'] == 'main':
 
 elif st.session_state['page'] == 'create':
     # Display the create page
-    import app.datasets.management.create as create_page
+    import app.datasets.management.create_and_save as create_page
     create_page.main()
 
-elif st.session_state['page'] == 'save':
+elif st.session_state['page'] == 'delete':
     # Display the save page
-    import app.datasets.management.save as save_page
-    save_page.main()
+    import app.datasets.management.delete as delete_page
+    delete_page.main()
