@@ -54,9 +54,12 @@ class ArtifactRegistry():
                 )
             artifacts.append(artifact)
         return artifacts
-    
+
     def get(self, artifact_id: str) -> Artifact:
         data = self._database.get("artifacts", artifact_id)
+        if data is None:
+            raise ValueError(f"Artifact with id {artifact_id} not found in the database.")
+
         return Artifact(
             name=data["name"],
             version=data["version"],
@@ -66,7 +69,7 @@ class ArtifactRegistry():
             data=self._storage.load(data["asset_path"]),
             type=data["type"],
         )
-    
+
     def delete(self, artifact_id: str):
         data = self._database.get("artifacts", artifact_id)
         self._storage.delete(data["asset_path"])
