@@ -1,7 +1,7 @@
 import streamlit as st
-import numpy as np
+import os
+import joblib
 from app.core.system import AutoMLSystem
-from autoop.core.ml.dataset import Dataset
 from autoop.core.ml.pipeline import Pipeline
 from autoop.core.ml.model.regression.lasso import Lasso
 from autoop.core.ml.model.regression.multiple_linear_regression import MultipleLinearRegression
@@ -29,6 +29,7 @@ write_helper_text("In this section, you can design a machine learning pipeline t
 
 # Initialize the AutoML system
 automl = AutoMLSystem.get_instance()
+artifact_registry = automl.registry
 
 # Load available Datasets
 datasets = automl.registry.list(type="dataset")
@@ -116,9 +117,43 @@ if selected_dataset_name:
             st.write("Training Results:")
             st.write(results)
 
-        if st.button("Save Pipeline"):
-            pipeline_name = st.text_input("Enter Pipeline Name", value="my_pipeline")
-            pipeline_version = st.text_input("Enter Pipeline Version", value="1.0")
-            if pipeline_name and pipeline_version:
-                pipeline.save(name=pipeline_name, version=pipeline_version)
-                st.success(f"Pipeline '{pipeline_name}' version {pipeline_version} saved successfully.")
+        pipeline_name = st.text_input("Enter Pipeline Name", value="my_pipeline")
+        pipeline_version = st.text_input("Enter Pipeline Version", value="1.0")
+
+        if st.button("Save Pipeline Components") and pipeline_name and pipeline_version:
+            if "selected_model" in st.session_state and "selected_dataset" in st.session_state:
+                model = st.session_state.selected_model
+                dataset = st.session_state.selected_dataset
+
+                # Set up storage paths
+                asset_dir = "assets"
+                os.makedirs(asset_dir, exist_ok=True)
+
+                # Serialize and save model
+                model_path = os.path.join(asset_dir, f"{pipeline_name}_model_v{pipeline_version}.pkl")
+                joblib.dump(model, model_path)
+
+                # Serialize and save dataset
+                dataset_path = os.path.join(asset_dir, f"{pipeline_name}_dataset_v{pipeline_version}.pkl")
+                joblib.dump(dataset, dataset_path)
+
+                # Register model and dataset as artifacts
+                try:
+                    automl.registry.register(
+                        artifact=model,
+                        name=f"{pipeline_name}_model",
+                        version=pipeline_version,
+                        asset_path=model_path
+                    )
+                    automl.registry.register(
+                        artifact=dataset,
+                        name=f"{pipeline_name}_dataset",
+                        version=pipeline_version,
+                        asset_path=dataset_path
+                    )
+                    st.success(
+                        f"Model and Dataset components of pipeline '{pipeline_name}' version {pipeline_version} saved successfully.")
+                except Exception as e:
+                    st.error(f"Failed to save pipeline components: {str(e)}")
+            else:
+                st.warning("Please select a model and dataset before saving.")
