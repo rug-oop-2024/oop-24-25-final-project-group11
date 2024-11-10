@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 from app.core.system import AutoMLSystem
 from autoop.core.ml.dataset import Dataset
 from autoop.core.ml.pipeline import Pipeline
@@ -10,7 +11,7 @@ from autoop.core.ml.model.classification.decision_tree import DecisionTree
 from autoop.core.ml.model.regression.ridge import Ridge
 from autoop.core.ml.metric import get_metric
 from autoop.core.ml.feature import Feature
-import numpy as np
+
 
 # Page Configuration
 st.set_page_config(page_title="Modelling", page_icon="📈")
@@ -18,6 +19,7 @@ st.set_page_config(page_title="Modelling", page_icon="📈")
 
 # Helper function for styled text
 def write_helper_text(text: str):
+    """Display styled helper text in Streamlit."""
     st.write(f"<p style=\"color: #888;\">{text}</p>", unsafe_allow_html=True)
 
 
@@ -29,14 +31,14 @@ write_helper_text("In this section, you can design a machine learning pipeline t
 automl = AutoMLSystem.get_instance()
 
 # Load available Datasets
-datasets = automl.registry.list(type="dataset") 
+datasets = automl.registry.list(type="dataset")
 dataset_names = [dataset.name for dataset in datasets]
 selected_dataset_name = st.selectbox("Select a dataset", dataset_names)
 
 # Load data as DataFrame
 if selected_dataset_name:
     selected_dataset = next(ds for ds in datasets if ds.name == selected_dataset_name)
-    dataset = selected_dataset.read()  
+    dataset = selected_dataset.read()
     st.write(f"Selected Dataset: {selected_dataset.name}")
     st.dataframe(dataset.head())
 
@@ -46,15 +48,16 @@ if selected_dataset_name:
 
     input_features_names = st.multiselect("Select Input Features", features)
     input_features = [
-        Feature(name=feature, feature_type="categorical" if dataset[feature].dtype == 'object' else "numerical")
+        Feature(
+            name=feature,
+            feature_type="categorical" if dataset[feature].dtype == 'object' else "numerical"
+        )
         for feature in input_features_names
     ]
 
     target_feature_name = st.selectbox("Select Target Feature", features)
     if target_feature_name:
-        # Determine the feature type based on the dataset column's dtype
         feature_type = "categorical" if dataset[target_feature_name].dtype == 'object' else "numerical"
-        # Create a Feature instance
         target_feature = Feature(name=target_feature_name, feature_type=feature_type)
 
     if not input_features_names:
@@ -68,27 +71,19 @@ if selected_dataset_name:
 
         # Model Selection Based on Task Type
         if task_type == "classification":
-            models = {"K-Nearest Neighbors": KNN(),
-                      "Random Forest": RandomForestRegressorModel(),
-                      "DecisionTree": DecisionTree()
-                      }
-            available_metrics = [
-                "accuracy",
-                "precision",
-                "recall",
-                "f1_score"
-            ]
+            models = {
+                "K-Nearest Neighbors": KNN(),
+                "Random Forest": RandomForestRegressorModel(),
+                "DecisionTree": DecisionTree()
+            }
+            available_metrics = ["accuracy", "precision", "recall", "f1_score"]
         else:
             models = {
                 "Lasso": Lasso(),
                 "Multiple Linear Regression": MultipleLinearRegression(),
-                "Ridge": Ridge(),
+                "Ridge": Ridge()
             }
-            available_metrics = [
-                "mean_squared_error",
-                "mean_absolute_error",
-                "r_squared"
-            ]
+            available_metrics = ["mean_squared_error", "mean_absolute_error", "r_squared"]
 
         model_names = list(models.keys())
         selected_model_name = st.selectbox("Select a Model", model_names)
@@ -108,7 +103,6 @@ if selected_dataset_name:
         })
 
         if st.button("Train Model"):
-            # Use get_metric to fetch selected metrics
             metrics = [get_metric(metric_name) for metric_name in selected_metrics]
             pipeline = Pipeline(
                 dataset=selected_dataset,
@@ -122,11 +116,9 @@ if selected_dataset_name:
             st.write("Training Results:")
             st.write(results)
 
-        
         if st.button("Save Pipeline"):
             pipeline_name = st.text_input("Enter Pipeline Name", value="my_pipeline")
             pipeline_version = st.text_input("Enter Pipeline Version", value="1.0")
             if pipeline_name and pipeline_version:
                 pipeline.save(name=pipeline_name, version=pipeline_version)
                 st.success(f"Pipeline '{pipeline_name}' version {pipeline_version} saved successfully.")
-
