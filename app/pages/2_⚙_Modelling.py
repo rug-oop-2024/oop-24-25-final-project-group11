@@ -120,10 +120,3 @@ if selected_dataset_name:
             results = pipeline.execute()
             st.write("Training Results:")
             st.write(results)
-
-        if st.button("Save Pipeline"):
-            pipeline_name = st.text_input("Enter Pipeline Name", value="my_pipeline")
-            pipeline_version = st.text_input("Enter Pipeline Version", value="1.0")
-            if pipeline_name and pipeline_version:
-                pipeline.save(name=pipeline_name, version=pipeline_version)
-                st.success(f"Pipeline '{pipeline_name}' version {pipeline_version} saved successfully.")
