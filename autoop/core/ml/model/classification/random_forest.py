@@ -1,6 +1,6 @@
 from autoop.core.ml.model import Model
 import numpy as np
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor as SKlearnRandomForest
 
 
 class RandomForestRegressorModel(Model):
@@ -12,9 +12,9 @@ class RandomForestRegressorModel(Model):
         _model: The model object.
         """
         super().__init__(name="RandomForestRegressor")
-        self._model = RandomForestRegressor()
+        self._model = SKlearnRandomForest()
 
-    def train(self, X: np.ndarray, y: np.ndarray) -> None:
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         """Train the model with training data.
 
          Args:

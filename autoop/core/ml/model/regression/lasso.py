@@ -1,6 +1,6 @@
 from autoop.core.ml.model import Model
 import numpy as np
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Lasso as SKlearnLasso
 
 
 class Lasso(Model):
@@ -13,7 +13,7 @@ class Lasso(Model):
             _parameters: A dictionary to save the parameters.
         """
         super().__init__(name="Lasso")
-        self._model = Lasso()
+        self._model = SKlearnLasso()
         self._parameters = {
             "alpha": self._model.alpha,
             "max_iter": self._model.max_iter,

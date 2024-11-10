@@ -3,7 +3,7 @@ from autoop.core.ml.model.regression.multiple_linear_regression import MultipleL
 from autoop.core.ml.model.regression.lasso import Lasso
 from autoop.core.ml.model.regression.svm import SVM
 from autoop.core.ml.model.classification.k_nearest_neighbours import KNN
-from autoop.core.ml.model.classification.random_forest import RandomForestRegressor
+from autoop.core.ml.model.classification.random_forest import RandomForestRegressorModel
 from autoop.core.ml.model.classification.svr import SVR
 
 
@@ -41,7 +41,7 @@ def get_model(model_name: str) -> Model:
         if model_name == "KNearestNeighbours":
             return KNN()
         elif model_name == "RandomForestRegressor":
-            return RandomForestRegressor()
+            return RandomForestRegressorModel()
         elif model_name == "SVR":
             return SVR()
 

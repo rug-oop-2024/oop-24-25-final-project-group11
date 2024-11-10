@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.svm import SVR
 
 
-class SVRModel(Model):
+class SVR(Model):
     """SVM for classification tasks."""
     def __init__(self, *args, **kwargs):
         """Initialize the model.
@@ -14,7 +14,7 @@ class SVRModel(Model):
         self._model = SVR(*args, **kwargs)
         super().__init__(name="SVR")
 
-    def train(self, X: np.ndarray, y: np.ndarray) -> None:
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         """Train the model with training data.
 
         Args:
