@@ -165,15 +165,15 @@ If you did not implement the feature
 | `ST/page/datasets`                    | NF           | Yuwen Zhou           |    X     | |
 | `ST/datasets/management/create`       | FN           | Yuwen Zhou           |    X     | |
 | `ST/datasets/management/save`         | FN           | Yuwen Zhou           |    X     | |
-| `ST/page/modelling`                   | NF           | Gunes Saner          |         | |
-| `ST/modelling/datasets/list`          | FN           | Gunes Saner          |         | |
-| `ST/modelling/datasets/features`      | FN           | Gunes Saner          |         | |
-| `ST/modelling/models`                 | FN           | Gunes Saner          |         | |
-| `ST/modelling/pipeline/split`         | FN           | Gunes Saner          |         | |
-| `ST/modelling/pipeline/metrics`       | FN           | Gunes Saner          |         | |
-| `ST/modelling/pipeline/summary`       | FN           | Gunes Saner          |         | |
-| `ST/modelling/pipeline/train`         | FN           | Gunes Saner          |         | |
-| `ST/modelling/pipeline/save`          | FN           | Gunes Saner          |         | |
+| `ST/page/modelling`                   | NF           | Gunes Saner          |    X     | |
+| `ST/modelling/datasets/list`          | FN           | Gunes Saner          |    X     | |
+| `ST/modelling/datasets/features`      | FN           | both                 |    X     | |
+| `ST/modelling/models`                 | FN           | Gunes Saner          |    X     | |
+| `ST/modelling/pipeline/split`         | FN           | Gunes Saner          |    X     | |
+| `ST/modelling/pipeline/metrics`       | FN           | Gunes Saner          |    X     | |
+| `ST/modelling/pipeline/summary`       | FN           | Gunes Saner          |    X     | |
+| `ST/modelling/pipeline/train`         | FN           | both                 |    X     | |
+| `ST/modelling/pipeline/save`          | FN           | Gunes Saner          |    X     | |
 | `ST/page/deployment`                  | FN           | Gunes Saner          |         | |
 | `ST/deployment/load`                  | FN           | Gunes Saner          |         | |
 | `ST/deployment/predict`               | FN           | Gunes Saner          |         | |
