@@ -28,14 +28,15 @@ write_helper_text("In this section, you can design a machine learning pipeline t
 # Initialize the AutoML system
 automl = AutoMLSystem.get_instance()
 
-# Load Datasets
-datasets = automl.registry.list(type="dataset")  # Fetch available datasets
+# Load available Datasets
+datasets = automl.registry.list(type="dataset") 
 dataset_names = [dataset.name for dataset in datasets]
 selected_dataset_name = st.selectbox("Select a dataset", dataset_names)
 
+# Load data as DataFrame
 if selected_dataset_name:
     selected_dataset = next(ds for ds in datasets if ds.name == selected_dataset_name)
-    dataset = selected_dataset.read()  # Load data as DataFrame
+    dataset = selected_dataset.read()  
     st.write(f"Selected Dataset: {selected_dataset.name}")
     st.dataframe(dataset.head())
 
