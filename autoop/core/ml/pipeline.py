@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict, Any
 import pickle
 
 from autoop.core.ml.artifact import Artifact
@@ -27,9 +27,9 @@ class Pipeline():
         self._metrics = metrics
         self._artifacts = {}
         self._split = split
-        if target_feature.type == "categorical" and model.type != "classification":
+        if target_feature.feature_type == "categorical" and model.type != "classification":
             raise ValueError("Model type must be classification for categorical target feature")
-        if target_feature.type == "continuous" and model.type != "regression":
+        if target_feature.feature_type == "numerical" and model.type != "regression":
             raise ValueError("Model type must be regression for continuous target feature")
 
     def __str__(self):
@@ -100,25 +100,47 @@ Pipeline(
         Y = self._train_y
         self._model.fit(X, Y)
 
-    def _evaluate(self):
-        X = self._compact_vectors(self._test_X)
-        Y = self._test_y
-        self._metrics_results = []
-        predictions = self._model.predict(X)
-        for metric in self._metrics:
-            result = metric.evaluate(predictions, Y)
-            self._metrics_results.append((metric, result))
-        self._predictions = predictions
+    def _evaluate(self) -> None:
+        """Evaluate the model on both training and test data sets."""
+        # Prepare results dictionaries for train and test
+        self._train_metrics_results = []
+        self._test_metrics_results = []
 
-    def execute(self):
+        # Train metrics
+        train_X = self._compact_vectors(self._train_X)
+        train_Y = self._train_y
+        train_predictions = self._model.predict(train_X)
+
+        for metric in self._metrics:
+            train_result = metric(train_predictions, train_Y)
+            self._train_metrics_results.append((metric, train_result))
+
+        # Test metrics
+        test_X = self._compact_vectors(self._test_X)
+        test_Y = self._test_y
+        test_predictions = self._model.predict(test_X)
+
+        for metric in self._metrics:
+            test_result = metric(test_predictions, test_Y)
+            self._test_metrics_results.append((metric, test_result))
+
+        # Store predictions for test set
+        self._predictions = test_predictions
+
+    def execute(self) -> Dict[str, Any]:
+        """
+        Execute the pipeline, returning metrics for both training and evaluation sets.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing metrics results for training and test sets, and test set predictions.
+        """
         self._preprocess_features()
         self._split_data()
         self._train()
         self._evaluate()
+
         return {
-            "metrics": self._metrics_results,
+            "train_metrics": self._train_metrics_results,
+            "test_metrics": self._test_metrics_results,
             "predictions": self._predictions,
         }
-        
-
-    

@@ -27,7 +27,7 @@ class TestPipeline(unittest.TestCase):
             dataset=self.dataset,
             model=MultipleLinearRegression(),
             input_features=list(filter(lambda x: x.name != "age", self.features)),
-            target_feature=Feature(name="age", type="numerical"),
+            target_feature=Feature(name="age", feature_type="numerical"),
             metrics=[MeanSquaredError()],
             split=0.8
         )
@@ -58,5 +58,5 @@ class TestPipeline(unittest.TestCase):
         self.pipeline._train()
         self.pipeline._evaluate()
         self.assertIsNotNone(self.pipeline._predictions)
-        self.assertIsNotNone(self.pipeline._metrics_results)
-        self.assertEqual(len(self.pipeline._metrics_results), 1)
+        self.assertIsNotNone(self.pipeline._test_metrics_results)
+        self.assertEqual(len(self.pipeline._test_metrics_results), 1)
