@@ -1,6 +1,6 @@
 from autoop.core.ml.model import Model
 import numpy as np
-from sklearn.svm import SVR
+from sklearn.svm import SVR as SKSVR
 
 
 class SVR(Model):
@@ -11,7 +11,7 @@ class SVR(Model):
         Args:
             _model: The model object.
         """
-        self._model = SVR(*args, **kwargs)
+        self._model = SKSVR(*args, **kwargs)
         super().__init__(name="SVR")
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
